@@ -1,0 +1,56 @@
+page-quotes {
+  ion-header {
+    color: white !important;
+  } // .toolbar-background-md {
+  //   border-color: #b2b2b2;
+  //   background: rgba(0, 0, 100, 0.7) !important;
+  // }
+  ion-content {
+    // background: rgba(0, 0, 200, 0.7) !important;
+  }
+  .scroll-content {
+    overflow-y: visible;
+  }
+  .quote-card {
+    margin-bottom: 16px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.8) !important;
+    padding-bottom: 0;
+    text-align: center;
+    .quote-text {
+      border-radius: 4px;
+      background: rgba(220, 200, 250, 0.2);
+      margin: 4px 8px;
+      padding: 4px 8px 8px 8px;
+    }
+    .owner {
+      padding-top: 4px;
+      font-size: 1.2em;
+      font-family: "Ovo" !important;
+    }
+    .body {
+      font-size: 1em; // margin-bottom: 8px;
+      font-family: "Muli" !important;
+    }
+    .time {
+      font-size: 0.8em;
+      font-style: italic;
+    }
+    .buttons {
+      // margin: px 0 0 0;
+      // border-top: 1px solid #FF3A19;
+      border-top: 1px solid #99f;
+    }
+    .buttons button {
+      margin: 0;
+      border-left: 1px solid #99f;
+    }
+    .buttons ion-col:nth-child(1)>button {
+      border-left: 0px solid #FFF;
+    }
+  }
+  .not-connected {
+    font-size: 1.2em;
+    text-align: center;
+  }
+}

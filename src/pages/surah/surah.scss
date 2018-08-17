@@ -1,0 +1,88 @@
+page-surah {
+  .txt-center {
+    text-align: center;
+  }
+  .txt-start {
+    text-align: start;
+  }
+  .txt-end {
+    text-align: end;
+  }
+  .toolbar-background {
+    background-image: 'url(assets/imgs/oriental.png)';
+    background-size: cover;
+    background-repeat: repeat;
+    opacity: 0.95;
+  }
+  .body {
+    position: relative;
+    background-image: url("../assets/imgs/oriental.png");
+    background-size: cover;
+    background-repeat: repeat;
+    height: 100%;
+    .info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding-bottom: 4px;
+      padding-right: 8px;
+      padding-left: 8px;
+      background: #112;
+      color: wheat;
+      border-radius: 0 0 20px 20px;
+      margin: 0 0px 8px 0px;
+      font-size: 1em;
+      ion-col {
+        border-left: 2px solid #eee;
+      }
+      ion-col.txt-start {
+        border-left: none !important;
+      }
+    }
+    .content {
+      position: absolute;
+      top: 10%;
+      bottom: 10%;
+      right: 0;
+      left: 0;
+      margin: auto
+    }
+    .quran {
+      ion-card {
+        padding: 8px 4px;
+        border-radius: 6px;
+        font-family: 'Quran';
+      }
+      .surah {
+        height: auto;
+      }
+      .trans {
+        height: auto;
+      }
+      .tafsir {
+        height: auto;
+      }
+    }
+    .navigation {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: #112;
+      text-align: center;
+      padding-top: 4px;
+      color: wheat;
+      border-radius: 20px 20px 0 0;
+      margin: auto 0px;
+      ion-col {
+        border-left: 2px solid #eee;
+      }
+      .prev {
+        border-left: none;
+      }
+    }
+  }
+}

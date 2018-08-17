@@ -1,0 +1,24 @@
+page-surah-list {
+  .container {
+    margin: 10%;
+    width: 80%;
+    height: 80%;
+    z-index: 101;
+    border-radius: 8px; // background-image: url('../../assets/imgs/curls.png');
+  }
+  .surah-card {
+    position: relative;
+    margin-bottom: 0;
+    .cancel-btn {
+      text-align: center;
+      position: absolute;
+      bottom: 0%;
+      right: 0%;
+      left: 0%;
+      margin: auto 10px;
+    }
+  }
+  .surah-card .item {
+    margin: 0 auto; // border-bottom: 1px solid #666;
+  }
+}

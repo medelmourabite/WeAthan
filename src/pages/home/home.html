@@ -1,18 +1,256 @@
-<ion-header>
-  <ion-navbar>
+<!-- <ion-header> -->
+<!-- <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content class="content-body" dir="ltr">
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-row align-items-center class="loading-animation" *ngIf="loading">
+    <ion-col col-5></ion-col>
+    <ion-col col-2>
+      <div class="anim la-ball-clip-rotate-pulse">
+        <div></div>
+        <div></div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row align-items-center class="loading-animation_2" *ngIf="loading">
+    <ion-col></ion-col>
+  </ion-row>
+
+  <div class="animation">
+
+    <!-- <button class="menu-button" ion-button color="light" menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+
+    <button class="config-button" ion-button color="light" (click)="goToConfig()">
+      <ion-icon name="settings"></ion-icon>
+    </button>
+
+    <span #wIcon class="w-icon" [ngStyle]="iconStyle" *ngIf="currentTemp && currentTemp.weather[0].icon ">
+      <img [src]=" 'assets/icons/'+currentTemp?.weather[0].icon+ '.png' " alt=" ">
+    </span>
+
+    <span class="ellipse_1 Absolute-Center " *ngIf="width>= 360"></span>
+    <span class="ellipse_2 Absolute-Center"></span>
+    <span class="ellipse_3 Absolute-Center"></span>
+    <span class="ellipse_4 Absolute-Center"></span>
+    <span class="ellipse_5 Absolute-Center"></span>
+
+
+    <button ion-button color="light" class="ellipse_6 Absolute-Center button_add" (click)="addLocation()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+
+    <!-- <button ion-button color="light" class="refresher" (click)="refreshData()">
+      <ion-icon name="refresh"></ion-icon>
+    </button> -->
+  </div>
+  <div class="info">
+    <div class="no-city" *ngIf="!location">
+      <ion-card class="custom-card">
+        {{lang?.clickToAdd}}
+      </ion-card>
+    </div>
+
+    <div class="city-info" *ngIf="location">
+      <div class="no-city" *ngIf="!currentTemp">
+        <ion-card class="custom-card">
+          {{lang?.outDatedData}}
+          <button ion-button full round color="light" icon-start (click)="refreshData()">
+            <ion-icon name="refresh"></ion-icon> {{lang?.refresh}}
+          </button>
+        </ion-card>
+      </div>
+
+      <ion-card *ngIf="currentTemp" class="custom-card" style="margin-top: 0 !important; border-radius: 0 0 4px 4px">
+        <ion-row>
+          <ion-col class="city-name">
+            {{location.city.name}}, {{location.city.country}}
+          </ion-col>
+          <ion-col class="today">
+            {{currentTemp?.date | date : "EE dd MMM"}}
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: 4px;">
+          <ion-col col-7 class="tempVal">
+            <ion-row>
+              <span class="min-max">
+                {{floor(min)}}/{{floor(max)}}°
+              </span>
+            </ion-row>
+            <ion-row>
+              <span style="margin-right: 0;padding-right: 0;">
+                {{floor(currentTemp?.main.temp)}}
+              </span>
+              <span class="degree" style="margin-left: 0;padding-left: 0;">°
+                <span class="small-txt" *ngIf="settings && settings.unit == 'Imperial' ">f</span>
+                <span class="small-txt" *ngIf="!settings || settings.unit == 'Metric' ">c</span>
+              </span>
+            </ion-row>
+            <ion-row>
+              <span *ngIf="dir == 'ltr'" class='txt-l now' (click)="refreshData()">
+                <small>Last update </small>{{currentTemp?.updated | date : "HH:mm"}}
+                <ion-icon name="refresh"></ion-icon>
+              </span>
+              <span *ngIf="dir == 'rtl'" class='txt-l now' (click)="refreshData()">
+                <ion-icon name="refresh"></ion-icon> {{currentTemp?.updated | date : "HH:mm"}}
+                <small>آخر تحديث</small>
+              </span>
+            </ion-row>
+          </ion-col>
+          <ion-col col-5 class="comment">
+            <span>{{currentTemp?.weather[0].description}}</span>
+            <br>
+            <span>{{currentTemp?.wind.speed}} {{ settings && settings.unit == 'Imperial' ? 'mph' : 'm/s'}}
+              <ion-icon name="paper-plane"></ion-icon>
+            </span>
+            <br>
+            <span>{{currentTemp?.main.humidity}} %
+              <ion-icon name="water"></ion-icon>
+            </span>
+            <br>
+            <span>{{currentTemp?.main.pressure}} hPa
+              <ion-icon name="speedometer"></ion-icon>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+
+
+      <ion-slides *ngIf="days && days.length" #slider pager (ionSlideWillChange)="onSlideChanged()">
+        <ion-slide *ngFor="let day of days" class="slide-background">
+          <!-- <ion-slide *ngFor="let day of days" class="slide-background" [ngStyle]="{'background-image': 'url(' + 'day.imageUrl' +')'}"> -->
+          <ion-card class="custom-card" *ngIf="today && today.hours && today.hours.length">
+            <ion-row>
+              <ion-col class="txt-l day-date">
+                {{today.date | date : "EE dd MMM"}}
+              </ion-col>
+              <ion-col class="txt-r day-date">
+                {{today.hijri.dayOfWeekText}} {{today.hijri.dayOfMonth}} {{today.hijri.monthText}} {{today.hijri.year}}
+              </ion-col>
+            </ion-row>
+            <ion-list class="forcast" *ngIf="today">
+              <div *ngFor="let hour of today.hours">
+
+                <ion-row align-items-center class="hour" *ngFor="let prayer of hour.prayers">
+                  <ion-col col-3 class="salate txt-l">
+                    {{prayer.name}}
+                  </ion-col>
+                  <ion-col col-2 class="time txt-l">
+                    {{prayer.dt | date : 'HH:mm'}}
+                  </ion-col>
+                  <ion-col col-2 class="icon">
+                    <span style="text-align: center;">
+                      <img [src]="'assets/icons/'+hour?.weather[0].icon+'.png'" alt="" style="margin: auto;">
+                    </span>
+                  </ion-col>
+                  <ion-col col-2 class="txt-r">
+                    {{floor(hour.main.temp)}}°
+                  </ion-col>
+                  <ion-col col-3 class="salate_ar txt-r">
+                    {{prayer.name_ar}}
+                  </ion-col>
+                </ion-row>
+              </div>
+              <ion-row>
+                <ion-col class="list-footer">
+                  <br>
+                </ion-col>
+              </ion-row>
+            </ion-list>
+            <ion-row class="list-footer">
+              <p class="">
+              </p>
+            </ion-row>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+
+
+
+
+    </div>
+
+    <div *ngIf="quote" class="quotes">
+      <ion-card class="custom-card">
+        <p [dir]="dir">
+          <span *ngIf="quote && quote.author">{{quote?.author}} :
+            <br>
+          </span>
+          <q>{{quote?.quote}} </q>
+          <span *ngIf="quote && quote.publication">
+            <br> -- {{quote?.publication}} --</span>
+        </p>
+
+      </ion-card>
+    </div>
+
+
+
+
+
+
+    <ion-card *ngIf="imgQuote" class="custom-card quote-card">
+      <img class="image" [src]="'http://preprod.seocom.ma/weather-athan/public/uploads/' + imgQuote.image" />
+      <div class="quote-text">
+        <ion-card-title class="owner">
+          {{imgQuote.owner}}
+        </ion-card-title>
+        <q class="body">
+          {{imgQuote.body}}
+        </q>
+      </div>
+
+      <ion-row>
+        <ion-col no-padding>
+          <button ion-button icon-start round color="light" full (click)="accessQuotes()">
+            <ion-icon name='more'></ion-icon>
+            {{lang?.more}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+
+    <ion-card class="custom-card quote-card">
+      <ion-row *ngIf="position && position.surah" class="surah-info">
+        <ion-col col-5 class="txt-start">{{position?.surah.englishNameTranslation}}</ion-col>
+        <!-- <ion-col col-2 class="txt-start">{{surah.englishName}}</ion-col> -->
+        <ion-col col-2 class="txt-center">
+          <ion-badge color="secondary">{{position?.surah.number}}</ion-badge>
+        </ion-col>
+        <!-- <ion-col col-2 class="txt-end">{{surah.evelationType}}</ion-col> -->
+        <ion-col col-5 class="txt-end">{{position?.surah.name}}</ion-col>
+      </ion-row>
+
+      <ion-row class="quran" *ngIf="position && position.ayah">
+        <ion-card class="surah" [ngStyle]="{'font-size': config?.fontSize + 'px', 'background': config?.background, 'color': config?.color}">
+          {{position?.ayah.text}}
+          <br>
+          <ion-badge>
+            {{position?.ayah.numberInSurah}}
+          </ion-badge>
+        </ion-card>
+      </ion-row>
+      <ion-row>
+        <ion-col no-padding>
+          <button ion-button icon-start round color="light" full (click)="accessQuran()">
+            <ion-icon name='book'></ion-icon>
+            {{lang?.quran}}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+
+
 </ion-content>

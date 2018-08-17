@@ -1,0 +1,21 @@
+<ion-content class="container">
+  <ion-card class="surah-card">
+    <ion-list>
+      <button *ngFor="let surah of surahs" ion-item (click)="viewSurah(surah.number)">
+        <ion-row>
+          <ion-col col-5>{{surah.englishName}}</ion-col>
+          <ion-col col-2 style="text-align: center">
+            {{surah.number}}
+          </ion-col>
+          <ion-col col-5 style="text-align: right">{{surah.name}}</ion-col>
+        </ion-row>
+      </button>
+      <button ion-item icon-only color="danger" style="text-align: center;" (click)="viewSurah(null)">
+        <ion-icon name="arrow-round-back"></ion-icon>
+      </button>
+    </ion-list>
+    <!-- <button class="cancel-btn" ion-item color="danger" (click)="viewSurah(null)">
+      Cancel
+    </button> -->
+  </ion-card>
+</ion-content>

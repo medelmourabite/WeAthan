@@ -1,0 +1,77 @@
+<div [dir]="dir">
+  <ion-list radio-group [(ngModel)]="fontFamily" class="popover-page">
+    <ion-row>
+      <ion-col>
+        <button (click)="changeFontSize('smaller')" ion-item detail-none class="text-button text-smaller">A</button>
+      </ion-col>
+      <ion-col>
+        <button (click)="changeFontSize('larger')" ion-item detail-none class="text-button text-larger">A</button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-dots">
+      <ion-col>
+        <button ion-button="dot" (click)="changeBackground('white')" class="dot-white" [class.selected]="background == 'white'"></button>
+      </ion-col>
+      <ion-col>
+        <button ion-button="dot" (click)="changeBackground('tan')" class="dot-tan" [class.selected]="background == 'tan'"></button>
+      </ion-col>
+      <ion-col>
+        <button ion-button="dot" (click)="changeBackground('grey')" class="dot-grey" [class.selected]="background == 'grey'"></button>
+      </ion-col>
+      <ion-col>
+        <button ion-button="dot" (click)="changeBackground('black')" class="dot-black" [class.selected]="background == 'black'"></button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <ion-label>{{lang?.font}}</ion-label>
+        <ion-select [(ngModel)]="config.fontFamily" name="fontFamily">
+          <ion-option *ngFor="let f of fonts" [value]='f.key'>{{f.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <div class="preview" [ngStyle]="{'font-size': fontSize + 'px', 'background': background, 'color': fontColor, 'font-family': config.fontFamily}">
+          بسم الله الرحمن الرحيم
+        </div>
+      </ion-item>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-item>
+        <ion-label>{{lang?.trans}}</ion-label>
+        <ion-checkbox [(ngModel)]="config.trans" name="trans"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <ion-label>{{lang?.tafsir}}</ion-label>
+        <ion-checkbox [(ngModel)]="config.tafsir" name="tafsir"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <ion-label>{{lang?.autoPlay}}</ion-label>
+        <ion-checkbox [(ngModel)]="config.autoPlay" name="autoPlay"></ion-checkbox>
+      </ion-item>
+    </ion-row>
+
+    <ion-row>
+      <ion-item>
+        <!-- <ion-label>Repeat recitation</ion-label> -->
+        <ion-input type="number" [(ngModel)]="config.repeat" name="repeat" min="0"></ion-input>
+        <ion-label *ngIf="language == 'en' && config.repeat > 0">repeat {{config.repeat}} times</ion-label>
+        <ion-label *ngIf="language == 'ar' && config.repeat > 0">تكرار {{config.repeat}} مرة</ion-label>
+        <ion-label *ngIf="config.repeat == 0">{{lang?.repeatInfinite}}</ion-label>
+      </ion-item>
+    </ion-row>
+
+  </ion-list>
+  <button ion-button full (click)="validate()">{{lang?.validate}}</button>
+</div>

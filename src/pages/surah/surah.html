@@ -1,0 +1,91 @@
+<!--
+  Generated template for the SurahPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header [dir]="dir">
+
+  <ion-navbar color="dark">
+    <ion-title item-start>{{lang?.title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showList()">
+        <ion-icon name="list"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentProgram($event)">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentConfig($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-card *ngIf="!surah">
+    <ion-card-header>
+      <p class='txt-center'>{{lang?.noData}}
+        <br>{{lang?.noData1}}</p>
+      <hr>
+      <button ion-button full round large color="secondary" (click)="presentProgram()">
+        {{lang?.startProgram}}
+      </button>
+    </ion-card-header>
+  </ion-card>
+  <div class="body" *ngIf="surah">
+    <ion-row class="info" *ngIf="surah">
+      <ion-col col-5 class="txt-start">{{surah.englishNameTranslation}}</ion-col>
+      <!-- <ion-col col-2 class="txt-start">{{surah.englishName}}</ion-col> -->
+      <ion-col col-2 class="txt-center">
+        <ion-badge color="secondary">{{surah.number}}</ion-badge>
+      </ion-col>
+      <!-- <ion-col col-2 class="txt-end">{{surah.evelationType}}</ion-col> -->
+      <ion-col col-5 class="txt-end">{{surah.name}}</ion-col>
+    </ion-row>
+
+    <ion-scroll class="content" scrollY="true">
+      <ion-slides *ngIf="surah" pager paginationType="progress" dir="rtl" interal _rtl="true" #slider (ionSlideWillChange)="onSlideChanged()">
+        <ion-slide *ngFor="let ayah of surah.ayahs, let i = index">
+          <div class="quran">
+            <ion-card class="surah" [ngStyle]="{'font-size': config?.fontSize + 'px', 'background': config?.background, 'color': config?.color, 'font-family': config?.fontFamily}">
+              {{ayah.text}}
+              <br>
+              <ion-badge>
+                {{ayah.numberInSurah}}
+              </ion-badge>
+            </ion-card>
+            <ion-card *ngIf="trans && trans.ayahs && trans.ayahs[i]" class="trans" [ngStyle]="{'font-size': config?.fontSize + 'px', 'background': config?.background, 'color': config?.color}">
+              {{trans?.ayahs[i].text}}
+            </ion-card>
+            <ion-card *ngIf="tafsir && tafsir.ayahs && tafsir.ayahs[i]" class="tafsir" [ngStyle]="{'font-size': config?.fontSize + 'px', 'background': config?.background, 'color': config?.color}">
+              {{tafsir?.ayahs[i].text}}
+            </ion-card>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </ion-scroll>
+    <ion-row class="navigation">
+      <ion-col class="prev" (click)="next()">
+        <ion-icon name="skip-backward"></ion-icon>
+      </ion-col>
+      <ion-col (click)="stopAudio()">
+        <ion-icon name="pause"></ion-icon>
+      </ion-col>
+      <ion-col (click)="playAudio()">
+        <ion-icon name="play"></ion-icon>
+      </ion-col>
+      <ion-col (click)="saveAyah()">
+        <ion-icon name="bookmark" *ngIf="!surah || !aya"></ion-icon>
+        <ion-icon name="bookmark" *ngIf="surah && aya && setting?.currentAyah != aya.numberInSurah || setting?.currentSurah != surah.number"></ion-icon>
+        <ion-icon name="bookmark" *ngIf="surah && aya && (setting?.currentAyah == aya.numberInSurah && setting?.currentSurah == surah.number)"
+          style="color:yellow"></ion-icon>
+      </ion-col>
+      <ion-col class="next" (click)="previous()">
+        <ion-icon name="skip-forward"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

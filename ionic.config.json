@@ -4,5 +4,10 @@
     "cordova": {}
   },
   "type": "ionic-angular",
-  "pro_id": "474180bc"
+  "pro_id": "474180bc",
+  "proxies": [{
+    "path": "/weather-athan",
+    "proxyUrl": "http://preprod.seocom.ma/weather-athan"
+  }]
+
 }

@@ -1,0 +1,100 @@
+<ion-header [dir]="dir">
+
+  <ion-navbar>
+    <ion-title>{{lang?.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content [dir]="dir">
+  <form (ngSubmit)="submitChanges()">
+    <ion-item-group>
+      <ion-item-divider>
+        {{lang?.general}}
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{lang?.languages}}</ion-label>
+        <ion-select [(ngModel)]="settings.lang" name="lang">
+          <ion-option *ngFor="let l of languages" [value]="l.key">{{l.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider>
+        {{lang?.date_time}}
+      </ion-item-divider>
+      <!-- <ion-item>
+        <ion-label>{{lang?.daylight}}</ion-label>
+        <ion-checkbox [(ngModel)]="settings.daylight" name="daylight"></ion-checkbox>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>{{lang?.adjust_hijri}}</ion-label>
+        <ion-input [(ngModel)]="settings.adjust" name="adjust" type="number"></ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        {{lang?.unit_system}}
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{lang?.unit}}</ion-label>
+        <ion-select [(ngModel)]="settings.unit" name="unit">
+          <ion-option *ngFor="let u of units" [value]="u.key">{{u.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        {{lang?.athan}}
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{lang?.calc_method}}</ion-label>
+        <ion-select [(ngModel)]="settings.calculation_method" name="method">
+          <ion-option *ngFor="let m of options" [value]="m.key">{{m.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{lang?.madhab}}</ion-label>
+        <ion-select [(ngModel)]="settings.madhab" name="madhab">
+          <ion-option *ngFor="let m of madhabs" [value]="m.key">{{m.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{lang?.athan_audio}}</ion-label>
+        <ion-select [(ngModel)]="settings.athan" name="athan" (ionChange)="stop(playing)" (ionCancel)="stop(playing)">
+          <ion-option *ngFor="let a of athans" [value]="a.key" (ionSelect)="playAthan(a.key)">{{a.name}} </ion-option>
+        </ion-select>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-row>
+          <ion-col col-6>
+            <div ion-button full color="light" icon-start (click)="playAthan()">
+              <ion-icon name="volume-up"></ion-icon>
+              {{lang?.listen}}</div>
+          </ion-col>
+          <ion-col col-6>
+            <div ion-button full color="light" icon-start (click)="stop(this.settings.athan)">
+              <ion-icon name="volume-off"></ion-icon>
+              {{lang?.stop}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>{{lang?.notif_prayers}}</ion-label>
+        <ion-select [(ngModel)]="settings.prayers" name="prayers" multiple="true">
+          <ion-option *ngFor="let p of prayers" [value]="p.key">{{p.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{lang?.notif_before}}</ion-label>
+        <ion-input [(ngModel)]="settings.before" min="0" max="30" name="before" type="number"></ion-input>
+      </ion-item>
+    </ion-item-group>
+    <ion-item>
+      <button ion-button round full>{{lang?.validate}}</button>
+    </ion-item>
+  </form>
+</ion-content>

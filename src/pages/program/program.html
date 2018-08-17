@@ -1,0 +1,123 @@
+<ion-header [dir]="dir">
+  <ion-navbar>
+    <div [ngSwitch]="step">
+      <!-- <ion-title *ngSwitchCase="0">
+        Select learning program
+      </ion-title> -->
+
+      <ion-title *ngSwitchCase="1">
+        {{lang?.remind}}
+      </ion-title>
+
+      <ion-title *ngSwitchCase="2">
+        {{lang?.moqrie}}
+      </ion-title>
+
+      <ion-title *ngSwitchCase="3">
+        {{lang?.trans}}
+      </ion-title>
+
+      <ion-title *ngSwitchCase="4">
+        {{lang?.tafsir}}
+      </ion-title>
+
+      <ion-title *ngSwitchCase="5">
+        {{lang?.validate}}
+      </ion-title>
+    </div>
+    <ion-buttons end>
+      <button ion-button icon-start *ngIf="step == 1" (click)="back()">
+        <ion-icon name="backspace"></ion-icon> {{lang?.cancel}}
+      </button>
+      <button ion-button icon-start *ngIf="step > 1" (click)="back()">
+        <ion-icon name="arrow-round-back"></ion-icon> {{lang?.back}}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content [dir]="dir">
+  <div [ngSwitch]="step">
+    <!-- <ion-card *ngSwitchCase="0">
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>5 aya per day</ion-label>
+            <ion-radio checked="false" value="go" (ionSelect)="next(step, 5)"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>12 aya per day</ion-label>
+            <ion-radio checked="false" value="go" (ionSelect)="next(step, 12)"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>30 aya per day</ion-label>
+            <ion-radio checked="false" value="go" (ionSelect)="next(step, 30)"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>60 aya per day</ion-label>
+            <ion-radio checked="false" value="go" (ionSelect)="next(step, 60)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card> -->
+
+    <ion-card *ngSwitchCase="1">
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let p of prayers">
+            <ion-label>{{p.name}}</ion-label>
+            <ion-checkbox (ionChange)="togglePrayer($event , p.key)"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <button ion-button block (click)="next(step,'')">{{lang?.next}}</button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="2">
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let a of editionsAudio">
+            <ion-label>{{a.language}} : {{a.name}}</ion-label>
+            <ion-radio checked="false" [value]="a.identifier" (ionSelect)="next(step,a.identifier)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="3">
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let e of editionsTrans">
+            <ion-label>{{e.language}} : {{e.name}}</ion-label>
+            <ion-radio checked="false" [value]="e.identifier" (ionSelect)="next(step,e.identifier)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="4">
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let e of editionsTafsir">
+            <ion-label>{{e.language}} : {{e.name}}</ion-label>
+            <ion-radio checked="false" [value]="e.identifier" (ionSelect)="next(step,e.identifier)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="5">
+      <ion-card-content>
+        <ion-item>
+          <h3>{{lang?.save}}</h3>
+          <p>{{lang?.canEdit}}</p>
+        </ion-item>
+        <hr>
+        <button ion-button full round type="back" block (click)="next(step, '')">{{lang?.validate}}</button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

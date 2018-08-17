@@ -1,0 +1,14 @@
+<div class="body" padding [dir]="dir">
+  <form (ngSubmit)="addLocation()">
+    <ion-item>
+      <ion-label>{{lang?.city_name}}</ion-label>
+      <ion-input #cityField type="text" [(ngModel)]="city.name" name="name"></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label>Country</ion-label>
+      <ion-input type="text" [(ngModel)]="city.country" name="country"></ion-input>
+    </ion-item> -->
+    <button ion-button type="submit" block [disabled]="city.name.length < 3">{{lang?.add_location}}</button>
+    <button ion-button color="danger" block (click)="dismiss()">{{lang?.cancel}}</button>
+  </form>
+</div>

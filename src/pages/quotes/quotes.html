@@ -1,0 +1,84 @@
+<!--
+  Generated template for the QuotesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>quotes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <!-- <ion-card style="height: 200%;">
+    <ion-item *ngFor="let e of errors">
+      {{e}}
+    </ion-item>
+  </ion-card> -->
+
+  <ion-list>
+    <ion-card class="quote-card" *ngFor="let q of quotes; let i = index">
+      <img class="image" [src]="'http://preprod.seocom.ma/weather-athan/public/uploads/' + q.image" />
+      <div class="quote-text">
+        <ion-card-title class="owner">
+          {{q.owner}}
+        </ion-card-title>
+        <q class="body">
+          {{q.body}}
+        </q>
+        <!-- <hr>
+        <p class="time">added {{q.updated_at}}</p> -->
+      </div>
+
+      <ion-row no-padding class="buttons">
+        <ion-col no-padding>
+          <button ion-button full clear icon-only (click)="share(i)">
+            <ion-icon name='share'></ion-icon>
+          </button>
+        </ion-col>
+        <!-- <ion-col no-padding>
+          <button ion-button icon-only full clear (click)="shareViaFacebook(i)">
+            <ion-icon name='logo-facebook'></ion-icon>
+          </button>
+        </ion-col> -->
+        <ion-col no-padding>
+          <button ion-button full clear icon-only (click)="shareViaFacebookHint(i)">
+            <ion-icon name='logo-facebook'></ion-icon>
+          </button>
+        </ion-col>
+        <!-- <ion-col no-padding>
+          <button ion-button icon-only full clear (click)="shareViaTwitter(i)">
+            <ion-icon name='logo-twitter'></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col no-padding>
+          <button ion-button icon-only full clear (click)="shareViaInstagram(i)">
+            <ion-icon name='logo-instagram'></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col no-padding>
+          <button ion-button icon-only full clear (click)="save(i)">
+            <ion-icon name='download'></ion-icon>
+          </button>
+        </ion-col> -->
+
+
+      </ion-row>
+    </ion-card>
+  </ion-list>
+
+  <ion-card class="not-connected" padding *ngIf="!connected">
+    <ion-icon name="wifi"></ion-icon> Please check your internet connection
+  </ion-card>
+  <!-- <ion-card class="not-connected" padding *ngIf="connected && last">
+    <ion-icon name="wifi"></ion-icon>
+  </ion-card> -->
+
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

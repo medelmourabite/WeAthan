@@ -1,0 +1,13 @@
+page-add-location {
+  position: relative;
+  .body {
+    padding: 16px;
+    background: #ddd;
+    position: absolute;
+    bottom: 0;
+    right: 16px;
+    left: 16px;
+    margin: auto;
+    border-radius: 8px 8px 0 0;
+  }
+}
